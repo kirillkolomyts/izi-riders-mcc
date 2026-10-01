@@ -83,7 +83,7 @@ h2 em { color:var(--red); font-style:normal; }
 .customize-copy > p:last-child { max-width:430px; font-size:1.15rem; font-weight:700; line-height:1.45; }
 .customizer { position:relative; min-height:78vh; background:var(--milk); border:1px solid rgba(0,0,0,.18); display:grid; grid-template-rows:1fr auto; }
 .custom-bomber { position:relative; display:grid; place-items:center; min-height:62vh; }
-.custom-bomber img { width:76%; height:58vh; object-fit:contain; filter:drop-shadow(0 24px 20px rgba(0,0,0,.18)); }
+.custom-bomber svg { width:76%; height:58vh; object-fit:contain; filter:drop-shadow(0 24px 20px rgba(0,0,0,.18)); }
 .placed-patch { position:absolute; z-index:3; background:#111; color:var(--milk); border:2px solid var(--milk); outline:1px solid #111; padding:6px 9px; font:900 11px Impact,"Arial Black",sans-serif; letter-spacing:.08em; transform:rotate(-8deg); animation:patchIn .45s cubic-bezier(.2,1.4,.4,1); }
 .placed-patch--1 { left:30%; top:34%; }.placed-patch--2 { right:29%; top:54%; transform:rotate(7deg); }.placed-patch--3 { left:35%; top:66%; transform:rotate(-3deg); }
 @keyframes patchIn { from { opacity:0; transform:scale(1.8) rotate(18deg); } }
@@ -155,7 +155,7 @@ footer { min-height:70vh; background:var(--ink); color:white; position:relative;
   .customize-copy h2 { font-size:15vw; }
   .customizer { min-height:690px; margin-top:7vh; }
   .custom-bomber { min-height:540px; }
-  .custom-bomber img { width:98%; height:510px; }
+  .custom-bomber svg { width:98%; height:510px; }
   .patch-tray p { width:100%; margin-bottom:8px; }
   .friendship { min-height:auto; display:block; padding:8vh 18px 7vh; }
   .friendship::before { width:90vw; left:-68vw; }

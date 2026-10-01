@@ -187,7 +187,10 @@ export default function Home() {
       <div className="customize-copy reveal"><p className="eyebrow">03 / MAKE IT YOURS</p><h2>КЛУБНЫЙ.<br /><em>НО ТВОЙ.</em></h2><p>Кастомайзь бомбер как твой мот</p></div>
       <div className="customizer reveal">
         <div className="custom-bomber">
-          <img src={`/bomber-red-front-cutout.png?v=${bomberAssetVersion}`} alt="Красный бомбер для кастомизации" />
+          <svg viewBox="0 0 532 577" role="img" aria-label="Красный бомбер для кастомизации">
+            <defs><clipPath id="red-bomber-front"><rect width="532" height="577" /></clipPath></defs>
+            <image href={`/bomber-pair-red-cutout.png?v=${bomberAssetVersion}`} width="1024" height="577" clipPath="url(#red-bomber-front)" />
+          </svg>
           {patches.map((p, i) => <span className={`placed-patch placed-patch--${i + 1}`} key={p}>{p}</span>)}
         </div>
         <div className="patch-tray"><p>ВЫБЕРИ СВОЙ ПАТЧ</p>{customPatches.map(p => <button className={patches.includes(p) ? "active" : ""} key={p} onClick={() => togglePatch(p)}>{p}</button>)}</div>
