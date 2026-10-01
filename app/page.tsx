@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 type BomberColor = "red" | "blue" | "green" | "orange";
-const bomberAssetVersion = "user-cutouts-v5";
+const bomberAssetVersion = "transparent-lowres-20261001";
 
 const colors: { key: BomberColor; label: string; hex: string }[] = [
   { key: "red", label: "Красный", hex: "#a60019" },
