@@ -123,11 +123,26 @@ function EasyScrollDrum() {
   </section>;
 }
 
-const customPatches = ["ROUTE 77", "MOSCOW", "NO RUSH", "23:10"];
+const customPatches = [
+  { key: "character", label: "ПЕРСОНАЖ", description: "Любимый персонаж — рядом с карманом" },
+  { key: "nickname", label: "НИКНЕЙМ", description: "Твой никнейм — под MEMBER" },
+  { key: "bike", label: "ТВОЙ БАЙК", description: "Модель твоего байка — на плече" },
+  { key: "city", label: "ГОРОД / РАЙОН", description: "Важное для тебя место — на корпусе" },
+  { key: "story", label: "ТВОЯ ИСТОРИЯ", description: "Личная фраза или дата — на рукаве" },
+] as const;
+type PersonalPatch = typeof customPatches[number]["key"];
+
+function PersonalPatchArtwork({ kind }: { kind: PersonalPatch }) {
+  if (kind === "character") return <img className="mascot-patch" src="/personal-mascot.png" alt="Синий персонаж — персональная нашивка" />;
+  if (kind === "nickname") return <span className="textile-patch name-patch">@kiko_drive</span>;
+  if (kind === "bike") return <span className="textile-patch bike-patch"><small>MOTO</small><b>V4</b><small>RIDER</small></span>;
+  if (kind === "city") return <span className="textile-patch city-patch"><small>HOME TOWN</small><b>МОСКВА</b><span>55°45′ N · 37°37′ E</span></span>;
+  return <span className="textile-patch story-patch"><span>MY FIRST RIDE</span><b>2026</b></span>;
+}
 
 export default function Home() {
   const [color, setColor] = useState<BomberColor>("red");
-  const [patches, setPatches] = useState<string[]>([]);
+  const [patches, setPatches] = useState<PersonalPatch[]>([]);
 
   useEffect(() => {
     const pointer = (e: PointerEvent) => {
@@ -141,7 +156,7 @@ export default function Home() {
     return () => { window.removeEventListener("pointermove", pointer); observer.disconnect(); };
   }, []);
 
-  const togglePatch = (patch: string) => setPatches(current => current.includes(patch) ? current.filter(p => p !== patch) : [...current, patch].slice(-3));
+  const togglePatch = (patch: PersonalPatch) => setPatches(current => current.includes(patch) ? current.filter(p => p !== patch) : [...current, patch]);
 
   return <main>
     <header className="site-header">
@@ -183,17 +198,24 @@ export default function Home() {
       <div className="patch-notes reveal"><span>ТВОИ НАШИВКИ</span><span>ТВОЙ ЦВЕТ</span><span>ТВОЙ СМЫСЛ</span></div>
     </section>
 
-    <section className="customize">
-      <div className="customize-copy reveal"><p className="eyebrow">03 / MAKE IT YOURS</p><h2>КЛУБНЫЙ.<br /><em>НО ТВОЙ.</em></h2><p>Кастомайзь бомбер как твой мот</p></div>
+    <section className="customize" id="customize" aria-labelledby="customize-title">
+      <div className="customize-copy reveal"><p className="eyebrow">03 / MAKE IT YOURS</p><h2 id="customize-title">КЛУБНЫЙ.<br /><em>НО ТВОЙ.</em></h2><p>Кастомайзь бомбер как твой мот</p><p className="personal-copy">Символика IZI объединяет. Персональные патчи рассказывают о тебе: твой никнейм, байк, любимый персонаж, места и истории.</p></div>
       <div className="customizer reveal">
         <div className="custom-bomber">
-          <svg viewBox="0 0 532 577" role="img" aria-label="Красный бомбер для кастомизации">
-            <defs><clipPath id="red-bomber-front"><rect width="532" height="577" /></clipPath></defs>
-            <image href={`/bomber-pair-red-cutout.png?v=${bomberAssetVersion}`} width="1024" height="577" clipPath="url(#red-bomber-front)" />
-          </svg>
-          {patches.map((p, i) => <span className={`placed-patch placed-patch--${i + 1}`} key={p}>{p}</span>)}
+          <div className="bomber-canvas">
+            <svg viewBox="0 0 532 577" role="img" aria-label="Клубный красный бомбер IZI с персональными патчами">
+              <defs><clipPath id="red-bomber-front"><rect width="532" height="577" /></clipPath></defs>
+              <image href={`/bomber-pair-red-cutout.png?v=${bomberAssetVersion}`} width="1024" height="577" clipPath="url(#red-bomber-front)" />
+            </svg>
+            {customPatches.map(p => patches.includes(p.key)
+              ? <div className={`personal-patch personal-patch--${p.key}`} key={p.key}><PersonalPatchArtwork kind={p.key} /></div>
+              : <button key={p.key} className={`patch-zone patch-zone--${p.key}`} onClick={() => togglePatch(p.key)} aria-label={`Добавить: ${p.description}`}><span>+</span></button>)}
+          </div>
         </div>
-        <div className="patch-tray"><p>ВЫБЕРИ СВОЙ ПАТЧ</p>{customPatches.map(p => <button className={patches.includes(p) ? "active" : ""} key={p} onClick={() => togglePatch(p)}>{p}</button>)}</div>
+        <div className="patch-tray">
+          <div className="patch-tray-intro"><p>ДОБАВЬ СВОЁ</p><span>Нажми на категорию. Ещё раз — снять патч.</span></div>
+          <div className="patch-buttons">{customPatches.map(p => <button className={patches.includes(p.key) ? "active" : ""} key={p.key} onClick={() => togglePatch(p.key)} aria-pressed={patches.includes(p.key)} title={p.description}><span aria-hidden="true">{patches.includes(p.key) ? "−" : "+"}</span>{p.label}</button>)}</div>
+        </div>
       </div>
     </section>
 

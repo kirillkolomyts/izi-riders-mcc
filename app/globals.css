@@ -81,16 +81,48 @@ h2 em { color:var(--red); font-style:normal; }
 .customize { min-height:105vh; background:var(--paper); display:grid; grid-template-columns:.85fr 1.15fr; align-items:center; gap:5vw; padding:9vh 4vw; overflow:hidden; }
 .customize-copy h2 { grid-column:auto; font-size:clamp(4rem,7.2vw,8rem); margin:4vh 0; }
 .customize-copy > p:last-child { max-width:430px; font-size:1.15rem; font-weight:700; line-height:1.45; }
-.customizer { position:relative; min-height:78vh; background:var(--milk); border:1px solid rgba(0,0,0,.18); display:grid; grid-template-rows:1fr auto; }
-.custom-bomber { position:relative; display:grid; place-items:center; min-height:62vh; }
-.custom-bomber svg { width:76%; height:58vh; object-fit:contain; filter:drop-shadow(0 24px 20px rgba(0,0,0,.18)); }
-.placed-patch { position:absolute; z-index:3; background:#111; color:var(--milk); border:2px solid var(--milk); outline:1px solid #111; padding:6px 9px; font:900 11px Impact,"Arial Black",sans-serif; letter-spacing:.08em; transform:rotate(-8deg); animation:patchIn .45s cubic-bezier(.2,1.4,.4,1); }
-.placed-patch--1 { left:30%; top:34%; }.placed-patch--2 { right:29%; top:54%; transform:rotate(7deg); }.placed-patch--3 { left:35%; top:66%; transform:rotate(-3deg); }
-@keyframes patchIn { from { opacity:0; transform:scale(1.8) rotate(18deg); } }
-.patch-tray { border-top:1px solid rgba(0,0,0,.18); padding:18px; display:flex; flex-wrap:wrap; gap:9px; align-items:center; }
-.patch-tray p { font-size:10px; font-weight:900; letter-spacing:.13em; margin:0 auto 0 0; }
-.patch-tray button { border:1px solid var(--ink); background:transparent; padding:9px 12px; font-size:10px; font-weight:900; cursor:pointer; transition:.2s; }
-.patch-tray button:hover,.patch-tray button.active { background:var(--ink); color:white; transform:translateY(-2px) rotate(-2deg); }
+ .customize-copy > .personal-copy { font-size:1rem; font-weight:400; color:#4e4b46; max-width:370px; }
+.customizer { position:relative; background:var(--milk); border:1px solid rgba(0,0,0,.18); }
+.custom-bomber { padding:28px 22px 18px; }
+.bomber-canvas { position:relative; width:min(100%,532px); aspect-ratio:532/577; margin:auto; isolation:isolate; }
+.bomber-canvas > svg { position:absolute; inset:0; width:100%; height:100%; display:block; filter:drop-shadow(0 20px 16px rgba(0,0,0,.14)); pointer-events:none; }
+.personal-patch { position:absolute; z-index:3; display:grid; place-items:center; transform:translate(-50%,-50%) rotate(var(--tilt,0deg)); animation:personalPatchIn .38s cubic-bezier(.2,1.3,.4,1); pointer-events:none; }
+.personal-patch--nickname { left:30.8%; top:41%; width:17%; --tilt:-2deg; }
+.personal-patch--bike { left:85.8%; top:24.8%; width:10%; --tilt:-14deg; }
+.personal-patch--character { left:64%; top:57.5%; width:16%; --tilt:6deg; }
+.personal-patch--city { left:28.7%; top:79.5%; width:17%; --tilt:7deg; }
+.personal-patch--story { left:90.1%; top:57%; width:6.5%; --tilt:-3deg; }
+.mascot-patch { display:block; width:100%; height:auto; filter:drop-shadow(1px 2px 1px #24080880); }
+.textile-patch { width:100%; display:flex; align-items:center; justify-content:center; color:var(--milk); background-color:#142338; border:2px solid #dfd1b5; outline:1px solid #191a20; box-shadow:1px 2px 2px #310e0e80,inset 0 0 0 1px #121922; background-image:repeating-linear-gradient(0deg,transparent 0 1px,#ffffff14 1px 2px); }
+.name-patch { padding:7% 2%; border-radius:2px; font-size:clamp(7px,.85vw,12px); font-weight:800; font-style:italic; white-space:nowrap; }
+.bike-patch { flex-direction:column; gap:2%; aspect-ratio:.78; border-radius:18% 18% 48% 48%; background-color:#252323; border-color:#dbb865; padding:10% 3% 20%; }
+.bike-patch b { font:900 clamp(17px,2.1vw,29px)/1 Impact,"Arial Black",sans-serif; color:#dbb865; }
+.bike-patch small { font-size:clamp(5px,.5vw,7px); font-weight:900; letter-spacing:.12em; }
+.city-patch { flex-direction:column; background-color:#e7b848; color:#18283a; border:2px dashed #243043; outline:2px solid #e7b848; border-radius:50%; aspect-ratio:1.3; padding:8% 3%; }
+.city-patch small { font-size:clamp(5px,.5vw,7px); font-weight:800; }
+.city-patch b { font-size:clamp(8px,1vw,14px); line-height:1.6; }
+.city-patch > span { font-size:clamp(4px,.4vw,6px); font-weight:800; white-space:nowrap; }
+.story-patch { background-color:#192e24; border-color:#d7d9b3; border-radius:3px; aspect-ratio:.22; flex-direction:column; gap:8%; padding:15% 8%; }
+.story-patch > span { writing-mode:vertical-rl; font-size:clamp(7px,.7vw,10px); font-weight:900; letter-spacing:.08em; }
+.story-patch b { font-size:clamp(5px,.5vw,7px); }
+.patch-zone { position:absolute; transform:translate(-50%,-50%); display:grid; place-items:center; width:34px; height:34px; border:1px dashed #f8f6f1; border-radius:50%; color:white; background:#09090966; cursor:pointer; transition:background .2s,border-color .2s; }
+.patch-zone span { font-size:22px; line-height:1; }
+.patch-zone:hover { background:var(--navy); border-color:white; }
+.patch-zone--nickname { left:30.8%; top:41%; }
+.patch-zone--bike { left:85.8%; top:24.8%; }
+.patch-zone--character { left:64%; top:57.5%; }
+.patch-zone--city { left:28.7%; top:79.5%; }
+.patch-zone--story { left:90.1%; top:57%; }
+@keyframes personalPatchIn { from { opacity:0; scale:.88; } to { opacity:1; scale:1; } }
+.patch-tray { border-top:1px solid #09090925; padding:22px; }
+.patch-tray-intro { display:flex; flex-wrap:wrap; align-items:center; gap:8px 18px; margin-bottom:16px; }
+.patch-tray-intro p { margin:0; font-size:14px; font-weight:900; letter-spacing:.06em; }
+.patch-tray-intro > span { font-size:14px; color:#514c45; }
+.patch-buttons { display:flex; flex-wrap:wrap; gap:8px; }
+.patch-buttons button { display:flex; align-items:center; gap:8px; min-height:44px; border:1px solid #09090955; background:transparent; padding:10px 12px; font-size:14px; font-weight:800; cursor:pointer; transition:background .2s,color .2s; }
+.patch-buttons button > span { font-size:18px; font-weight:400; }
+.patch-buttons button:hover,.patch-buttons button.active { background:var(--ink); color:var(--milk); border-color:var(--ink); }
+.patch-buttons button:focus-visible,.patch-zone:focus-visible { outline:3px solid var(--navy); outline-offset:4px; }
 
 .friendship { min-height:100vh; background:var(--milk); position:relative; overflow:hidden; display:flex; align-items:center; padding:9vh 4vw; }
 .friendship::before { content:""; position:absolute; width:55vw; height:120vh; left:-25vw; top:-8vh; background:var(--red); transform:rotate(-19deg); }
@@ -151,12 +183,21 @@ footer { min-height:70vh; background:var(--ink); color:white; position:relative;
   .bomber-labels { inset:auto 2% 0; }
   .bomber-labels span { padding:6px 10px; font-size:8px; }
   .patch-notes { left:18px; right:auto; flex-wrap:wrap; }
-  .customize { min-height:1100px; display:block; padding:8vh 18px; }
+  .customize { min-height:auto; display:block; padding:8vh 18px; }
   .customize-copy h2 { font-size:15vw; }
-  .customizer { min-height:690px; margin-top:7vh; }
-  .custom-bomber { min-height:540px; }
-  .custom-bomber svg { width:98%; height:510px; }
-  .patch-tray p { width:100%; margin-bottom:8px; }
+  .customizer { margin-top:5vh; }
+  .custom-bomber { padding:20px 8px; }
+  .patch-tray { padding:18px 14px; }
+  .patch-buttons { gap:7px; }
+  .patch-buttons button { font-size:14px; padding:9px 10px; }
+  .name-patch { font-size:2.1vw; }
+  .bike-patch b { font-size:5vw; }
+  .bike-patch small,.city-patch small { font-size:1.3vw; }
+  .city-patch b { font-size:2.6vw; }
+  .city-patch > span { font-size:1.1vw; }
+  .story-patch > span { font-size:1.8vw; }
+  .story-patch b { font-size:1.3vw; }
+  .patch-zone { width:30px; height:30px; }
   .friendship { min-height:auto; display:block; padding:8vh 18px 7vh; }
   .friendship::before { width:90vw; left:-68vw; }
   .join-path { width:calc(100% - 44px); margin:3vh 0 10vh; }
