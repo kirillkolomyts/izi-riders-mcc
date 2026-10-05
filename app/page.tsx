@@ -140,6 +140,39 @@ function PersonalPatchArtwork({ kind }: { kind: PersonalPatch }) {
   return <span className="textile-patch story-patch"><span>MY FIRST RIDE</span><b>2026</b></span>;
 }
 
+type MemberBike = { brand: string; model: string; photo?: string };
+const members: { name: string; username: string; photo?: string; roles: string[]; bikes: MemberBike[] }[] = [
+  { name: "KIKO", username: "kirill_kolomyts", photo: "/kiko-20261005.webp", roles: ["FOUNDER", "MEMBER"], bikes: [{ brand: "BMW", model: "R1250GS", photo: "/kiko-r1250gs.webp" }, { brand: "BMW", model: "K1100 LT", photo: "/kiko-k1100lt.webp" }] },
+  { name: "CHES", username: "cheslavram", photo: "/ches.webp", roles: ["FOUNDER", "MEMBER"], bikes: [{ brand: "Ducati", model: "Multistrada V4", photo: "/ches-multistrada-v4.webp" }, { brand: "Triumph", model: "Rocket 3", photo: "/ches-rocket-3.webp" }] },
+  { name: "ANTON", username: "oshur1", photo: "/anton-20261005.webp", roles: ["MEMBER"], bikes: [{ brand: "BMW", model: "R1200R", photo: "/anton-r1200r.webp" }] },
+];
+
+function ClubMembers() {
+  return <section className="club-members" id="members" aria-labelledby="members-title">
+    <div className="members-heading reveal"><p className="eyebrow">01 / THE RIDERS</p><h2 id="members-title">СВОИ<br /><em>ЛЮДИ.</em></h2><p className="members-caption">IZI RIDERS MCC<br />MOSCOW · EST. 2026</p></div>
+    <div className="member-grid">
+      {members.map(member => <article className={`member-card member-card--${member.name.toLowerCase()} reveal`} key={member.username} aria-labelledby={`member-${member.name}`}>
+        <div className="member-roles">{member.roles.map(role => <span className={`member-role member-role--${role.toLowerCase()}`} key={role}>{role}</span>)}</div>
+        <div className="member-portrait">{member.photo
+          ? <img src={member.photo} alt={member.name} loading="lazy" decoding="async" />
+          : <div className="member-monogram" aria-label="ANTON"><span aria-hidden="true">A</span><small>IZI RIDERS</small></div>}
+        </div>
+        <h3 id={`member-${member.name}`}>{member.name}</h3>
+        <div className="member-bikes" aria-label={`Мотоциклы ${member.name}`}>
+          {member.bikes.map(bike => <details className="member-bike" key={`${bike.brand}-${bike.model}`} onPointerEnter={event => { if (event.pointerType === "mouse") event.currentTarget.open = true; }} onPointerLeave={event => { if (event.pointerType === "mouse") event.currentTarget.open = false; }}>
+            <summary aria-label={`${bike.brand} ${bike.model}: показать фото`}><span><b>{bike.brand}</b> {bike.model}</span><span className="bike-photo-dot" aria-hidden="true">+</span></summary>
+            <div className="bike-photo-panel">{bike.photo ? <img src={bike.photo} alt={`${bike.brand} ${bike.model}`} loading="lazy" decoding="async" /> : <div className="bike-photo-pending"><b>{bike.brand}</b><span>{bike.model}</span><small>ФОТО СКОРО</small></div>}</div>
+          </details>)}
+        </div>
+        <a className="member-telegram" href={`https://t.me/${member.username}`} target="_blank" rel="noreferrer" aria-label={`${member.name} в Telegram: @${member.username}`}>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 3-4 18-6-5-4 4 1-7L3 9Z" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" /><path d="m8 13 9-6-6 9" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" /></svg>
+          <span><small>TG</small><b>@{member.username}</b></span>
+        </a>
+      </article>)}
+    </div>
+  </section>;
+}
+
 export default function Home() {
   const [color, setColor] = useState<BomberColor>("red");
   const [patches, setPatches] = useState<PersonalPatch[]>([]);
@@ -175,13 +208,17 @@ export default function Home() {
 
     <section className="club-intro" id="club" aria-labelledby="club-title">
       <h2 id="club-title" className="reveal"><span>МОТОКЛУБ</span><em>МОСКВА</em></h2>
-      <p className="reveal">Любим путешествовать хорошей компанией и открывать новые места. Иногда это спонтанная поездка на один день, а иногда — настоящее путешествие небольшим составом на несколько дней. Главное — дорога, свобода и люди, с которыми хочется разделить эти моменты.</p>
+      <div className="club-intro-copy reveal">
+      <p>Любим путешествовать хорошей компанией и открывать новые места. Иногда это спонтанная поездка на один день, а иногда — настоящее путешествие небольшим составом на несколько дней. Главное — дорога, свобода и люди, с которыми хочется разделить эти моменты.</p>
+        <p className="club-membership">Катайся с нами. Станем друзьями — <strong>ты уже IZI.</strong></p>
+      </div>
     </section>
 
     <section className="statement" id="identity">
       <div className="ticker" aria-hidden="true"><div>NOT YOUR USUAL MOTORCYCLE CLUB · NOT YOUR USUAL MOTORCYCLE CLUB · </div></div>
+      <ClubMembers />
       <div className="statement-grid reveal">
-        <p className="eyebrow">01 / IDENTITY</p>
+        <p className="eyebrow">02 / IDENTITY</p>
         <h2>ОДИН КЛУБ.<br /><em><ColorShiftWord /> ЦВЕТ.</em></h2>
         <p className="statement-copy">Общая идентичность.<br />Твой собственный стиль.</p>
       </div>
@@ -189,7 +226,7 @@ export default function Home() {
 
     <section className="roles">
       <div className="roles-copy reveal">
-        <p className="eyebrow">02 / EARNED, NOT ORDERED</p><h2>THE BOMBER<br />TELLS THE STORY.</h2>
+        <p className="eyebrow">03 / EARNED, NOT ORDERED</p><h2>THE BOMBER<br />TELLS THE STORY.</h2>
         <div className="color-picker" role="group" aria-label="Цвет бомбера">
           {colors.map(c => <button key={c.key} className={color === c.key ? "active" : ""} style={{ "--dot": c.hex } as React.CSSProperties} onClick={() => setColor(c.key)} aria-label={c.label}><i /></button>)}
         </div>
@@ -199,7 +236,7 @@ export default function Home() {
     </section>
 
     <section className="customize" id="customize" aria-labelledby="customize-title">
-      <div className="customize-copy reveal"><p className="eyebrow">03 / MAKE IT YOURS</p><h2 id="customize-title">КЛУБНЫЙ.<br /><em>НО ТВОЙ.</em></h2><p>Кастомайзь бомбер как твой мот</p><p className="personal-copy">Символика IZI объединяет. Персональные патчи рассказывают о тебе: твой никнейм, байк, любимый персонаж, места и истории.</p></div>
+      <div className="customize-copy reveal"><p className="eyebrow">04 / MAKE IT YOURS</p><h2 id="customize-title">КЛУБНЫЙ.<br /><em>НО ТВОЙ.</em></h2><p>Кастомайзь бомбер как твой мот</p><p className="personal-copy">Символика IZI объединяет. Персональные патчи рассказывают о тебе: твой никнейм, байк, любимый персонаж, места и истории.</p></div>
       <div className="customizer reveal">
         <div className="custom-bomber">
           <div className="bomber-canvas">
@@ -221,25 +258,7 @@ export default function Home() {
 
     <EasyScrollDrum />
 
-    <section className="friendship">
-      <div className="join-path reveal" aria-label="Путь вступления в клуб">
-        <div><b>01</b><span>RIDE<br />WITH US</span></div>
-        <div><b>02</b><span>BECOME<br />A FRIEND</span></div>
-        <div><b>03</b><span>BECOME<br />IZI</span></div>
-      </div>
-      <div className="friendship-copy reveal"><p className="eyebrow">04 / MEMBERSHIP</p><h2>СТАЛ НАШИМ<br />НАСТОЯЩИМ ДРУГОМ —<br /><em className="already-izi">ТЫ УЖЕ IZI.</em></h2></div>
-    </section>
-
     <footer>
-      <div className="founders reveal">
-        <p className="eyebrow">FOUNDERS</p>
-        <div className="founder-cards">
-          <figure className="founder-card founder-card--kiko"><img src="/kiko.jpg" alt="KIKO" /><figcaption><b>KIKO</b></figcaption></figure>
-          <span className="founder-x">×</span>
-          <figure className="founder-card founder-card--ches"><img src="/ches.jpg" alt="CHES" /><figcaption><b>CHES</b></figcaption></figure>
-        </div>
-        <small>MOSCOW · EST. 2026</small>
-      </div>
       <a className="telegram telegram--footer reveal" href="https://t.me/izi_riders" target="_blank" rel="noreferrer"><span>JOIN THE RIDE</span><strong>t.me/izi_riders ↗</strong></a>
       <div className="footer-word">KEEP IT IZI.</div>
     </footer>
