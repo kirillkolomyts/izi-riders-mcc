@@ -144,7 +144,7 @@ type MemberBike = { brand: string; model: string; photo?: string };
 const members: { name: string; username: string; photo?: string; roles: string[]; bikes: MemberBike[] }[] = [
   { name: "KIKO", username: "kirill_kolomyts", photo: "/kiko-20261005.webp", roles: ["FOUNDER", "MEMBER"], bikes: [{ brand: "BMW", model: "R1250GS", photo: "/kiko-r1250gs.webp" }, { brand: "BMW", model: "K1100 LT", photo: "/kiko-k1100lt.webp" }] },
   { name: "CHES", username: "cheslavram", photo: "/ches.webp", roles: ["FOUNDER", "MEMBER"], bikes: [{ brand: "Ducati", model: "Multistrada V4", photo: "/ches-multistrada-v4-20261005.webp" }, { brand: "Triumph", model: "Rocket 3", photo: "/ches-rocket-3-20261005.webp" }] },
-  { name: "ANTON", username: "oshur1", photo: "/anton-20261005.webp", roles: ["MEMBER"], bikes: [{ brand: "BMW", model: "R1200R", photo: "/anton-r1200r.webp" }] },
+  { name: "OSHUR", username: "oshur1", photo: "/anton-20261005.webp", roles: ["MEMBER"], bikes: [{ brand: "BMW", model: "R1200R", photo: "/anton-r1200r.webp" }] },
 ];
 
 function ClubMembers() {
@@ -155,7 +155,7 @@ function ClubMembers() {
         <div className="member-roles">{member.roles.map(role => <span className={`member-role member-role--${role.toLowerCase()}`} key={role}>{role}</span>)}</div>
         <div className="member-portrait">{member.photo
           ? <img src={member.photo} alt={member.name} loading="lazy" decoding="async" />
-          : <div className="member-monogram" aria-label="ANTON"><span aria-hidden="true">A</span><small>IZI RIDERS</small></div>}
+          : <div className="member-monogram" aria-label={member.name}><span aria-hidden="true">{member.name[0]}</span><small>IZI RIDERS</small></div>}
         </div>
         <h3 id={`member-${member.name}`}>{member.name}</h3>
         <div className="member-bikes" aria-label={`Мотоциклы ${member.name}`}>
