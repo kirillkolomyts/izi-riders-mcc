@@ -143,7 +143,7 @@ function PersonalPatchArtwork({ kind }: { kind: PersonalPatch }) {
 type MemberBike = { brand: string; model: string; photo?: string };
 const members: { name: string; username: string; photo?: string; roles: string[]; bikes: MemberBike[] }[] = [
   { name: "KIKO", username: "kirill_kolomyts", photo: "/kiko-20261005.webp", roles: ["FOUNDER", "MEMBER"], bikes: [{ brand: "BMW", model: "R1250GS", photo: "/kiko-r1250gs.webp" }, { brand: "BMW", model: "K1100 LT", photo: "/kiko-k1100lt.webp" }] },
-  { name: "CHES", username: "cheslavram", photo: "/ches.webp", roles: ["FOUNDER", "MEMBER"], bikes: [{ brand: "Ducati", model: "Multistrada V4", photo: "/ches-multistrada-v4.webp" }, { brand: "Triumph", model: "Rocket 3", photo: "/ches-rocket-3.webp" }] },
+  { name: "CHES", username: "cheslavram", photo: "/ches.webp", roles: ["FOUNDER", "MEMBER"], bikes: [{ brand: "Ducati", model: "Multistrada V4", photo: "/ches-multistrada-v4-20261005.webp" }, { brand: "Triumph", model: "Rocket 3", photo: "/ches-rocket-3-20261005.webp" }] },
   { name: "ANTON", username: "oshur1", photo: "/anton-20261005.webp", roles: ["MEMBER"], bikes: [{ brand: "BMW", model: "R1200R", photo: "/anton-r1200r.webp" }] },
 ];
 
